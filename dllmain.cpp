@@ -110,7 +110,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 			logfile.open(LogFileName);
 			logfile << "GetModuleHandle failed\n";
 			logfile.close();
-			return 1;
+			return TRUE;
 		}
 		oCreateFileW = (CreateFile_t)GetProcAddress(hKernelBase, "CreateFileW");
 		oCreateFileA = (CreateFile_tA)GetProcAddress(hKernelBase, "CreateFileA");
