@@ -32,12 +32,12 @@ CreateFile_t oCreateFileW;
 CreateFile_tA oCreateFileA;
 ofstream logfile;
 const char* FlashFsCertKeysName = "\\\\.\\Xvuc\\FlashFS\\certkeys.bin";
-const char* EmuFlashCertKeysName = "D:\\DevelopmentFiles\\FlashFS\\certkeys.bin";
+const char* EmuFlashCertKeysName = "D:\\EmuFlash\\certkeys.bin";
 
 const char* LogFileName = "D:\\emuflashlog.txt";
 
 LPCWSTR UnicodeFlashFsCertKeysName = L"\\\\.\\Xvuc\\FlashFS\\certkeys.bin";
-LPCWSTR UnicodeEmuFlashCertKeysName = L"D:\\DevelopmentFiles\\FlashFS\\certkeys.bin";
+LPCWSTR UnicodeEmuFlashCertKeysName = L"D:\\EmuFlash\\certkeys.bin";
 
 HANDLE WINAPI hkCreateFile(
 	_In_     LPCTSTR               lpFileName,
@@ -49,7 +49,7 @@ HANDLE WINAPI hkCreateFile(
 	_In_opt_ HANDLE                hTemplateFile
 )
 {
-	if (lpFileName == UnicodeFlashFsCertKeysName)
+	if(lstrcmp(lpFileName, UnicodeFlashFsCertKeysName) == 0)
 	{
 		ofstream logfile;
 		logfile.open(LogFileName);
@@ -72,7 +72,7 @@ HANDLE WINAPI hkCreateFileA(
 	_In_opt_ HANDLE                hTemplateFile
 )
 {
-	if (lpFileName == FlashFsCertKeysName)
+	if(strcmp(lpFileName, FlashFsCertKeysName) == 0)
 	{
 		ofstream logfile;
 		logfile.open(LogFileName);
@@ -83,6 +83,15 @@ HANDLE WINAPI hkCreateFileA(
 	}
 	cout << "Normal CreateFile call, disregarding" << endl;
 	return oCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+}
+
+__declspec(dllexport) void GetThreadProfilingDataVolatile() 
+{
+	return;
+}
+__declspec(dllexport) void ThreadProfilingBind()
+{
+	return;
 }
 
 
